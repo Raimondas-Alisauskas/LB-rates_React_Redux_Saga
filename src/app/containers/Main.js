@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-
 import PropTypes from 'prop-types';
+import axios from 'axios';
 
 import MainForm from '../components/mainForm/MainForm';
 
@@ -16,13 +16,31 @@ class Main extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    this.props.request(this.state.currency, this.state.date);
+    this.props.getFxRatesForCurrency(this.state.currency, this.state.date);
   };
 
   handleInputChange = event => {
     const { name, value } = event.target;
     this.setState({ [name]: value });
   };
+
+  //   getFxRatesForCurrency = (currency, date)=>{
+
+  //   }
+
+  componentDidMount() {
+    axios
+      .get(
+        `https://cors.io/?http://old.lb.lt//webservices/fxrates/FxRates.asmx/getFxRatesForCurrency?tp=EU&ccy=USD&dtFrom=2017-01-01&dtTo=2017-01-01`
+      )
+      .then(response => {
+        const answer = response.data;
+        console.log(answer);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
 
   render() {
     return (
