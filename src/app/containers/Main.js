@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import axios from 'axios';
 
 import MainForm from '../components/mainForm/MainForm';
@@ -16,7 +15,7 @@ class Main extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    this.props.getFxRatesForCurrency(this.state.currency, this.state.date);
+    this.getFxRatesForCurrency(this.state.currency, this.state.date);
   };
 
   handleInputChange = event => {
@@ -24,23 +23,39 @@ class Main extends Component {
     this.setState({ [name]: value });
   };
 
-  //   getFxRatesForCurrency = (currency, date)=>{
-
-  //   }
-
-  componentDidMount() {
+  getFxRatesForCurrency = (currency, date) => {
     axios
       .get(
-        `https://cors.io/?http://old.lb.lt//webservices/fxrates/FxRates.asmx/getFxRatesForCurrency?tp=EU&ccy=USD&dtFrom=2017-01-01&dtTo=2017-01-01`
+        `https://cors.io/?http://old.lb.lt//webservices/fxrates/FxRates.asmx/getFxRatesForCurrency?tp=EU&ccy=${currency}&dtFrom=${date}&dtTo=${date}`
       )
       .then(response => {
-        const answer = response.data;
-        console.log(answer);
+        // const answer = response.data;
+        // console.log(answer);
+        // if (window.DOMParser) {
+        //   // code for modern browsers
+        //   const parser = new DOMParser();
+        //   const xmlDoc = parser.parseFromString(answer, 'text/xml');
+        // } else {
+        //   // code for old IE browsers
+        //   const xmlDoc = new ActiveXObject('Microsoft.XMLDOM');
+        //   xmlDoc.async = false;
+        //   xmlDoc.loadXML(answer);
+        // }
+
+        const xmlDoc = new DOMParser().parseFromString(
+          response.data,
+          'text/xml'
+        );
+        const amtValue = xmlDoc.getElementsByTagName('Amt')[1].textContent;
+        this.setState({ currencyRate: amtValue });
+        console.log(response.data);
+        console.log(xmlDoc);
+        console.log(amtValue);
       })
       .catch(error => {
-        console.log(error);
+        alert(error);
       });
-  }
+  };
 
   render() {
     return (
@@ -54,9 +69,5 @@ class Main extends Component {
     );
   }
 }
-
-Main.propTypes = {
-  request: PropTypes.func.isRequired
-};
 
 export default Main;
