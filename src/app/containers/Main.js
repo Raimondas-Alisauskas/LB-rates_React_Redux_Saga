@@ -8,22 +8,23 @@ class Main extends Component {
     super(props);
     this.state = {
       currency: '',
-      date: '',
+      from: '',
+      to: '',
       currencyRate: '0'
     };
   }
-
-  handleSubmit = event => {
-    event.preventDefault();
-    this.getFxRatesForCurrency(this.state.currency, this.state.date);
-  };
 
   handleInputChange = event => {
     const { name, value } = event.target;
     this.setState({ [name]: value });
   };
 
-  getFxRatesForCurrency = (currency, date) => {
+  handleSubmit = event => {
+    event.preventDefault();
+    this.getFxRateForCurrency(this.state.currency, this.state.from);
+  };
+
+  getFxRateForCurrency = (currency, date) => {
     axios
       .get(
         `https://cors.io/?http://old.lb.lt//webservices/fxrates/FxRates.asmx/getFxRatesForCurrency?tp=EU&ccy=${currency}&dtFrom=${date}&dtTo=${date}`
@@ -41,15 +42,18 @@ class Main extends Component {
         //   xmlDoc.async = false;
         //   xmlDoc.loadXML(answer);
         // }
+        console.log(response.data);
 
         const xmlDoc = new DOMParser().parseFromString(
           response.data,
           'text/xml'
         );
+
+        console.log(xmlDoc);
+
         const amtValue = xmlDoc.getElementsByTagName('Amt')[1].textContent;
         this.setState({ currencyRate: amtValue });
-        console.log(response.data);
-        console.log(xmlDoc);
+
         console.log(amtValue);
       })
       .catch(error => {
@@ -61,7 +65,8 @@ class Main extends Component {
     return (
       <MainForm
         currency={this.state.currency}
-        date={this.state.date}
+        from={this.state.from}
+        to={this.state.to}
         currencyRate={this.state.currencyRate}
         handleInputChange={this.handleInputChange}
         handleSubmit={this.handleSubmit}

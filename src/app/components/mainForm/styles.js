@@ -28,10 +28,9 @@ const styles = theme => ({
   answer: {
     marginTop: theme.spacing.unit * 3
   }
-  //   textField: {
-  //     marginLeft: theme.spacing.unit,
-  //     marginRight: theme.spacing.unit,
-  //     width: 200
-  //   }
+  // textField: {
+  //   marginLeft: theme.spacing.unit,
+  //   marginRight: theme.spacing.unit
+  // }
 });
 export default styles;
