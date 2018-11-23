@@ -15,7 +15,9 @@ const MainForm = ({
   currency,
   from,
   to,
-  currencyRate,
+  currencyRate1,
+  currencyRate2,
+  difference,
   handleInputChange,
   handleSubmit
 }) => (
@@ -23,7 +25,7 @@ const MainForm = ({
     <CssBaseline />
     <Paper className={classes.paper}>
       <Typography component="h5" variant="h5">
-        LBank.lt Request
+        Request to lb.lt
       </Typography>
       <form
         className={classes.form}
@@ -43,6 +45,7 @@ const MainForm = ({
           name="from"
           value={from}
           label="From"
+          type="date"
           className={classes.textField}
           margin="normal"
           required
@@ -51,6 +54,7 @@ const MainForm = ({
           name="to"
           value={to}
           label="To"
+          type="date"
           className={classes.textField}
           margin="normal"
           required
@@ -64,16 +68,33 @@ const MainForm = ({
         >
           Submit
         </Button>
+
+        <TextField
+          name="answer1"
+          value={currencyRate1}
+          label="Rate for From date"
+          className={classes.textField}
+          margin="normal"
+          InputProps={{ readOnly: true }}
+        />
+        <TextField
+          name="answer2"
+          value={currencyRate2}
+          label="Rate for To date"
+          className={classes.textField}
+          margin="normal"
+          InputProps={{ readOnly: true }}
+        />
+        <TextField
+          name="answer3"
+          value={difference}
+          label="Rate difference"
+          className={classes.textField}
+          margin="normal"
+          InputProps={{ readOnly: true }}
+          fullWidth
+        />
       </form>
-      <TextField
-        name="answer"
-        value={currencyRate}
-        label="Currency rate:"
-        className={classes.textField}
-        margin="normal"
-        InputProps={{ readOnly: true }}
-        fullWidth
-      />
     </Paper>
   </main>
 );
@@ -83,7 +104,9 @@ MainForm.propTypes = {
   currency: PropTypes.string.isRequired,
   from: PropTypes.string.isRequired,
   to: PropTypes.string.isRequired,
-  currencyRate: PropTypes.string.isRequired,
+  currencyRate1: PropTypes.string.isRequired,
+  currencyRate2: PropTypes.string.isRequired,
+  difference: PropTypes.string.isRequired,
   handleInputChange: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired
 };

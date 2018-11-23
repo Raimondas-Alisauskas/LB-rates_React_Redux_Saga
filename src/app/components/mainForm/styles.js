@@ -24,13 +24,6 @@ const styles = theme => ({
   },
   submit: {
     marginTop: theme.spacing.unit * 3
-  },
-  answer: {
-    marginTop: theme.spacing.unit * 3
   }
-  // textField: {
-  //   marginLeft: theme.spacing.unit,
-  //   marginRight: theme.spacing.unit
-  // }
 });
 export default styles;

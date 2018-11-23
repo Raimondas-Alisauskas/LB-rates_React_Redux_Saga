@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-
 import MainForm from '../components/mainForm/MainForm';
 
 class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currency: '',
-      from: '',
-      to: '',
-      currencyRate: '0'
+      currency: 'USD',
+      from: '2018-01-01',
+      to: '2018-02-01',
+      currencyRate1: '0',
+      currencyRate2: '0',
+      difference: '0'
     };
   }
 
@@ -21,44 +22,49 @@ class Main extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    this.getFxRateForCurrency(this.state.currency, this.state.from);
-  };
 
-  getFxRateForCurrency = (currency, date) => {
-    axios
-      .get(
-        `https://cors.io/?http://old.lb.lt//webservices/fxrates/FxRates.asmx/getFxRatesForCurrency?tp=EU&ccy=${currency}&dtFrom=${date}&dtTo=${date}`
-      )
-      .then(response => {
-        // const answer = response.data;
-        // console.log(answer);
-        // if (window.DOMParser) {
-        //   // code for modern browsers
-        //   const parser = new DOMParser();
-        //   const xmlDoc = parser.parseFromString(answer, 'text/xml');
-        // } else {
-        //   // code for old IE browsers
-        //   const xmlDoc = new ActiveXObject('Microsoft.XMLDOM');
-        //   xmlDoc.async = false;
-        //   xmlDoc.loadXML(answer);
-        // }
-        console.log(response.data);
+    const getFxRateForCurrency = (currency, date1, date2) => {
+      axios
+        .all([
+          axios.get(
+            `https://cors.io/?http://old.lb.lt//webservices/fxrates/FxRates.asmx/getFxRatesForCurrency?tp=EU&ccy=${currency}&dtFrom=${date1}&dtTo=${date1}`
+          ),
+          axios.get(
+            `https://cors.io/?http://old.lb.lt//webservices/fxrates/FxRates.asmx/getFxRatesForCurrency?tp=EU&ccy=${currency}&dtFrom=${date2}&dtTo=${date2}`
+          )
+        ])
+        .then(
+          axios.spread((response1, response2) => {
+            console.log(response1.data);
+            console.log(response2.data);
+            const value1 = getElementValueFromResponse(response1, 'Amt');
+            const value2 = getElementValueFromResponse(response2, 'Amt');
+            this.setState({ currencyRate1: value1 });
+            this.setState({ currencyRate2: value2 });
+            this.setState({ difference: (value2 - value1).toFixed(4) });
+          })
+        )
+        .catch(error => {
+          if (error.response) {
+            alert(
+              'Problem with Lb.lt server responce. Please try another time or conect directly' +
+                'https://www.lb.lt/lt/kasdien-skelbiami-euro-ir-uzsienio-valiutu-santykiai-skelbia-europos-centrinis-bankas'
+            );
+          } else if (error.request) {
+            alert('The request was made but no response was received');
+          } else {
+            alert('Please put the valid data');
+          }
+        });
+    };
 
-        const xmlDoc = new DOMParser().parseFromString(
-          response.data,
-          'text/xml'
-        );
+    const getElementValueFromResponse = (response, element) => {
+      const xmlDoc = new DOMParser().parseFromString(response.data, 'text/xml');
 
-        console.log(xmlDoc);
+      return xmlDoc.getElementsByTagName(element)[1].textContent;
+    };
 
-        const amtValue = xmlDoc.getElementsByTagName('Amt')[1].textContent;
-        this.setState({ currencyRate: amtValue });
-
-        console.log(amtValue);
-      })
-      .catch(error => {
-        alert(error);
-      });
+    getFxRateForCurrency(this.state.currency, this.state.from, this.state.to);
   };
 
   render() {
@@ -67,7 +73,9 @@ class Main extends Component {
         currency={this.state.currency}
         from={this.state.from}
         to={this.state.to}
-        currencyRate={this.state.currencyRate}
+        currencyRate1={this.state.currencyRate1}
+        currencyRate2={this.state.currencyRate2}
+        difference={this.state.difference}
         handleInputChange={this.handleInputChange}
         handleSubmit={this.handleSubmit}
       />
