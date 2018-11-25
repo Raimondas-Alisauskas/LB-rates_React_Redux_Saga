@@ -35,8 +35,6 @@ class Main extends Component {
         ])
         .then(
           axios.spread((response1, response2) => {
-            // console.log(response1.data);
-            // console.log(response2.data);
             const value1 = getElementValueFromResponse(response1, 'Amt');
             const value2 = getElementValueFromResponse(response2, 'Amt');
             this.setState({ currencyRate1: value1 });
