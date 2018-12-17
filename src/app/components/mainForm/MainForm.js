@@ -44,7 +44,7 @@ const MainForm = ({
         <TextField
           name="from"
           value={from}
-          label="From"
+          label="From date"
           type="date"
           className={classes.textField}
           margin="normal"
@@ -53,7 +53,7 @@ const MainForm = ({
         <TextField
           name="to"
           value={to}
-          label="To"
+          label="To date"
           type="date"
           className={classes.textField}
           margin="normal"
