@@ -72,7 +72,7 @@ const MainForm = ({
         <TextField
           name="answer1"
           value={currencyRate1}
-          label="Rate for From date"
+          label="Rate at From date"
           className={classes.textField}
           margin="normal"
           InputProps={{ readOnly: true }}
@@ -80,7 +80,7 @@ const MainForm = ({
         <TextField
           name="answer2"
           value={currencyRate2}
-          label="Rate for To date"
+          label="Rate at To date"
           className={classes.textField}
           margin="normal"
           InputProps={{ readOnly: true }}

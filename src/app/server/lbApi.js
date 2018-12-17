@@ -33,6 +33,7 @@ export const getFxRateForCurrency = async (currency, date1, date2) => {
         alert('Please put the valid data');
       }
     });
+
   return responseValues;
 };
 
