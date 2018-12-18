@@ -10,7 +10,7 @@ import TextField from '@material-ui/core/TextField';
 
 import styles from './styles';
 
-const MainForm = ({
+const mainForm = ({
   classes,
   isLoading,
   currency,
@@ -100,7 +100,7 @@ const MainForm = ({
   </main>
 );
 
-MainForm.propTypes = {
+mainForm.propTypes = {
   classes: PropTypes.instanceOf(Object).isRequired,
   isLoading: PropTypes.bool.isRequired,
   currency: PropTypes.string.isRequired,
@@ -113,4 +113,4 @@ MainForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired
 };
 
-export default withStyles(styles)(MainForm);
+export default withStyles(styles)(mainForm);

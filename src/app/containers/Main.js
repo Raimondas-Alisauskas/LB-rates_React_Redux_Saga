@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import * as actionCreators from '../state-management/actions';
-import MainForm from '../components/mainForm/MainForm';
+import MainForm from '../components/mainForm/mainForm';
 
 class Main extends Component {
   handleInputChange = e => {
