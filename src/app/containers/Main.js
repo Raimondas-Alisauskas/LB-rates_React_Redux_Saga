@@ -5,41 +5,6 @@ import * as actionCreators from '../state-management/actions';
 import MainForm from '../components/mainForm/MainForm';
 
 class Main extends Component {
-  // state = {
-  //   currency: 'USD',
-  //   from: '2018-01-01',
-  //   to: '2018-02-01'
-  // };
-
-  // handleInputChange = event => {
-  //   const { name, value } = event.target;
-  //   this.setState({ [name]: value });
-  // };
-
-  // async handleSubmit(event) {
-  //   event.preventDefault();
-
-  //   const getValuesFromServer = new Promise(resolve => {
-  //     resolve(
-  //       getFxRateForCurrency(
-  //         this.state.currency,
-  //         this.state.from,
-  //         this.state.to
-  //       )
-  //     );
-  //   });
-
-  //   getValuesFromServer.then(responseValues => {
-  //     this.setState({
-  //       currencyRate1: responseValues.currencyRate1,
-  //       currencyRate2: responseValues.currencyRate2,
-  //       difference: (
-  //         responseValues.currencyRate2 - responseValues.currencyRate1
-  //       ).toFixed(4)
-  //     });
-  //   });
-  // }
-
   handleInputChange = e => {
     const { name, value } = e.target;
     this.props.changeInputs(name, value);
