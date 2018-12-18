@@ -7,6 +7,7 @@ import Paper from '@material-ui/core/Paper/Paper';
 import Typography from '@material-ui/core/Typography/Typography';
 import Button from '@material-ui/core/Button/Button';
 import TextField from '@material-ui/core/TextField';
+import SelectCurrency from '../selectCurrency/selectCurrency';
 
 import styles from './styles';
 
@@ -33,6 +34,7 @@ const mainForm = ({
         onChange={handleInputChange}
         onSubmit={handleSubmit}
       >
+        <SelectCurrency />
         <TextField
           name="currency"
           value={currency}

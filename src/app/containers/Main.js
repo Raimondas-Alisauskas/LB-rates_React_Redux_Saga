@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import { getCurrencyList } from '../server/getCurrencyList';
 import * as actionCreators from '../state-management/actions';
 import MainForm from '../components/mainForm/mainForm';
 
 class Main extends Component {
+  componentDidMount = () => {
+    getCurrencyList();
+  };
+
   handleInputChange = e => {
     const { name, value } = e.target;
     this.props.changeInputs(name, value);
