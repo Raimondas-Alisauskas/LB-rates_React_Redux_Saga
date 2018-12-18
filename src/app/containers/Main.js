@@ -18,6 +18,7 @@ class Main extends Component {
   render() {
     return (
       <MainForm
+        isLoading={this.props.isLoading}
         currency={this.props.currency}
         from={this.props.from}
         to={this.props.to}
@@ -32,6 +33,7 @@ class Main extends Component {
 }
 
 const mapStateToProps = state => ({
+  isLoading: state.main.isLoading,
   currency: state.main.currency,
   from: state.main.from,
   to: state.main.to,

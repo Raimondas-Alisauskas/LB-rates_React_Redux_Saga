@@ -1,7 +1,7 @@
 import * as actionTypes from '../constants';
 
 const initialState = {
-  isloading: false,
+  isLoading: false,
   currency: 'USD',
   from: '2018-01-01',
   to: '2018-02-01',
@@ -20,12 +20,12 @@ export default (state = initialState, action) => {
     case actionTypes.LOAD_FIXRATE_REQUEST:
       return {
         ...state,
-        isloading: true
+        isLoading: true
       };
     case actionTypes.LOAD_FIXRATE_SUCCESS:
       return {
         ...state,
-        isloading: false,
+        isLoading: false,
         currencyRate1: action.response.currencyRate1,
         currencyRate2: action.response.currencyRate2,
         difference: (

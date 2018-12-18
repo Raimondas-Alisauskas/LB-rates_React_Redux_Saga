@@ -12,6 +12,7 @@ import styles from './styles';
 
 const MainForm = ({
   classes,
+  isLoading,
   currency,
   from,
   to,
@@ -66,7 +67,7 @@ const MainForm = ({
           variant="contained"
           color="primary"
         >
-          Submit
+          {isLoading ? 'Loading...' : 'Submit'}
         </Button>
 
         <TextField
@@ -101,6 +102,7 @@ const MainForm = ({
 
 MainForm.propTypes = {
   classes: PropTypes.instanceOf(Object).isRequired,
+  isLoading: PropTypes.bool.isRequired,
   currency: PropTypes.string.isRequired,
   from: PropTypes.string.isRequired,
   to: PropTypes.string.isRequired,
