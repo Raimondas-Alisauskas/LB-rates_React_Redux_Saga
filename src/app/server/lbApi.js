@@ -29,6 +29,10 @@ export const getFxRateForCurrency = async (currency, date1, date2) => {
         );
       } else if (error.request) {
         alert('The request was made but no response was received');
+        responseValues = {
+          currencyRate1: '0',
+          currencyRate2: '0'
+        };
       } else {
         alert('Please put the valid data');
       }
