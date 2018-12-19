@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import * as actionCreators from '../state-management/actions';
-import MainForm from '../components/mainForm/mainForm';
+import MainForm from '../components/mainForm';
 
 class Main extends Component {
   componentDidMount = () => {
@@ -23,6 +23,7 @@ class Main extends Component {
     return (
       <MainForm
         isLoading={this.props.isLoading}
+        currencyList={this.props.currencyList}
         currency={this.props.currency}
         from={this.props.from}
         to={this.props.to}
@@ -38,6 +39,7 @@ class Main extends Component {
 
 const mapStateToProps = state => ({
   isLoading: state.main.isLoading,
+  currencyList: state.main.currencyList,
   currency: state.main.currency,
   from: state.main.from,
   to: state.main.to,

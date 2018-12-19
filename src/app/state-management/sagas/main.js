@@ -12,7 +12,11 @@ function* main() {
 }
 function* getCurrencySaga() {
   const response = yield getCurrencyList();
-  yield put(loadCurrencyListSuccess(response));
+  const currencyList = response.map(el => ({
+    value: el,
+    label: el
+  }));
+  yield put(loadCurrencyListSuccess(currencyList));
 }
 
 function* getFixRateSaga() {

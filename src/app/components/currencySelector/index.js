@@ -15,45 +15,54 @@ import CancelIcon from '@material-ui/core/Icon/';
 
 import styles from './styles';
 
-const suggestions = [
-  { label: 'Afghanistan' },
-  { label: 'Aland Islands' },
-  { label: 'Albania' },
-  { label: 'Algeria' },
-  { label: 'American Samoa' },
-  { label: 'Andorra' },
-  { label: 'Angola' },
-  { label: 'Anguilla' },
-  { label: 'Antarctica' },
-  { label: 'Antigua and Barbuda' },
-  { label: 'Argentina' },
-  { label: 'Armenia' },
-  { label: 'Aruba' },
-  { label: 'Australia' },
-  { label: 'Austria' },
-  { label: 'Azerbaijan' },
-  { label: 'Bahamas' },
-  { label: 'Bahrain' },
-  { label: 'Bangladesh' },
-  { label: 'Barbados' },
-  { label: 'Belarus' },
-  { label: 'Belgium' },
-  { label: 'Belize' },
-  { label: 'Benin' },
-  { label: 'Bermuda' },
-  { label: 'Bhutan' },
-  { label: 'Bolivia, Plurinational State of' },
-  { label: 'Bonaire, Sint Eustatius and Saba' },
-  { label: 'Bosnia and Herzegovina' },
-  { label: 'Botswana' },
-  { label: 'Bouvet Island' },
-  { label: 'Brazil' },
-  { label: 'British Indian Ocean Territory' },
-  { label: 'Brunei Darussalam' }
-].map(suggestion => ({
-  value: suggestion.label,
-  label: suggestion.label
-}));
+// console.log(this.props.currencyList);
+// const suggestions = this.props.currencyList
+//   // [
+//   //   { label: 'Afghanistan' },
+//   //   { label: 'Aland Islands' },
+//   //   { label: 'Albania' },
+//   //   { label: 'Algeria' },
+//   //   { label: 'American Samoa' },
+//   //   { label: 'Andorra' },
+//   //   { label: 'Angola' },
+//   //   { label: 'Anguilla' },
+//   //   { label: 'Antarctica' },
+//   //   { label: 'Antigua and Barbuda' },
+//   //   { label: 'Argentina' },
+//   //   { label: 'Armenia' },
+//   //   { label: 'Aruba' },
+//   //   { label: 'Australia' },
+//   //   { label: 'Austria' },
+//   //   { label: 'Azerbaijan' },
+//   //   { label: 'Bahamas' },
+//   //   { label: 'Bahrain' },
+//   //   { label: 'Bangladesh' },
+//   //   { label: 'Barbados' },
+//   //   { label: 'Belarus' },
+//   //   { label: 'Belgium' },
+//   //   { label: 'Belize' },
+//   //   { label: 'Benin' },
+//   //   { label: 'Bermuda' },
+//   //   { label: 'Bhutan' },
+//   //   { label: 'Bolivia, Plurinational State of' },
+//   //   { label: 'Bonaire, Sint Eustatius and Saba' },
+//   //   { label: 'Bosnia and Herzegovina' },
+//   //   { label: 'Botswana' },
+//   //   { label: 'Bouvet Island' },
+//   //   { label: 'Brazil' },
+//   //   { label: 'British Indian Ocean Territory' },
+//   //   { label: 'Brunei Darussalam' }
+//   // ]
+//   .map(suggestion => ({
+//     value: suggestion.label,
+//     label: suggestion.label
+//   }));
+
+// console.log(this.props.currencyList);
+// const suggestions = this.props.currencyList.map(suggestion => ({
+//   value: suggestion.label,
+//   label: suggestion.label
+// }));
 
 function NoOptionsMessage(props) {
   return (
@@ -173,11 +182,24 @@ const components = {
   ValueContainer
 };
 
+// console.log(this.props.currencyList);
+// const suggestions = this.props.currencyList.map(suggestion => ({
+//   value: suggestion.label,
+//   label: suggestion.label
+// }));
+
 class IntegrationReactSelect extends React.Component {
   state = {
     single: null,
-    multi: null
+    multi: null,
+    suggestions: []
   };
+
+  componentDidUpdate(prevProps) {
+    if (this.props.currencyList !== prevProps.currencyList) {
+      this.setState({ suggestions: this.props.currencyList });
+    }
+  }
 
   handleChange = name => value => {
     this.setState({
@@ -198,13 +220,17 @@ class IntegrationReactSelect extends React.Component {
       })
     };
 
+    // console.log(this.props.currencyList);
+    console.log('a');
+
     return (
       <div className={classes.root}>
         <NoSsr>
           <Select
             classes={classes}
             styles={selectStyles}
-            options={suggestions}
+            // options={this.props.currencyList}
+            options={this.state.suggestions}
             components={components}
             value={this.state.single}
             onChange={this.handleChange('single')}

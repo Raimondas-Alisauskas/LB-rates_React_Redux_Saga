@@ -10,10 +10,10 @@ export const loadCurrencyListRequest = () => ({
   type: actionTypes.LOAD_CURRENCY_LIST_REQUEST
 });
 
-export const loadCurrencyListSuccess = response => {
+export const loadCurrencyListSuccess = currencyList => {
   return {
     type: actionTypes.LOAD_CURRENCY_LIST_SUCCESS,
-    response
+    currencyList
   };
 };
 

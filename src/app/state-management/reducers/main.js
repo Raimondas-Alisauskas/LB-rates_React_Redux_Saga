@@ -28,7 +28,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        currencyList: action.response.currencyList
+        currencyList: action.currencyList
       };
 
     case actionTypes.LOAD_FIXRATE_REQUEST:

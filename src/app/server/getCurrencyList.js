@@ -8,9 +8,7 @@ export const getCurrencyList = async () => {
       'https://cors.io/?http://old.lb.lt/webservices/fxrates/FxRates.asmx/getCurrencyList'
     )
     .then(response => {
-      responseValue = {
-        currencyList: getAllElementsValuesFromResponse(response, 'Ccy')
-      };
+      responseValue = getAllElementsValuesFromResponse(response, 'Ccy');
     })
     .catch(error => {
       if (error.response) {
