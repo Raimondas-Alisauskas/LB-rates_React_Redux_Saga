@@ -6,7 +6,18 @@ export const changeInputs = (name, value) => ({
   value: value
 });
 
-export const loadFixRate = () => ({
+export const loadCurrencyListRequest = () => ({
+  type: actionTypes.LOAD_CURRENCY_LIST_REQUEST
+});
+
+export const loadCurrencyListSuccess = response => {
+  return {
+    type: actionTypes.LOAD_CURRENCY_LIST_SUCCESS,
+    response
+  };
+};
+
+export const loadFixRateRequest = () => ({
   type: actionTypes.LOAD_FIXRATE_REQUEST
 });
 

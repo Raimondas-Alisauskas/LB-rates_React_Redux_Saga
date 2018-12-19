@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { getCurrencyList } from '../server/getCurrencyList';
 import * as actionCreators from '../state-management/actions';
 import MainForm from '../components/mainForm/mainForm';
 
 class Main extends Component {
   componentDidMount = () => {
-    getCurrencyList();
+    this.props.loadCurrencyList();
   };
 
   handleInputChange = e => {
@@ -50,7 +49,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   changeInputs: (name, value) =>
     dispatch(actionCreators.changeInputs(name, value)),
-  loadFixRate: () => dispatch(actionCreators.loadFixRate())
+  loadCurrencyList: () => dispatch(actionCreators.loadCurrencyListRequest()),
+  loadFixRate: () => dispatch(actionCreators.loadFixRateRequest())
 });
 
 export default connect(

@@ -2,6 +2,7 @@ import * as actionTypes from '../constants';
 
 const initialState = {
   isLoading: false,
+  currencyList: [],
   currency: 'USD',
   from: '2018-01-01',
   to: '2018-02-01',
@@ -17,6 +18,19 @@ export default (state = initialState, action) => {
         ...state,
         [action.name]: action.value
       };
+
+    case actionTypes.LOAD_CURRENCY_LIST_REQUEST:
+      return {
+        ...state,
+        isLoading: true
+      };
+    case actionTypes.LOAD_CURRENCY_LIST_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        currencyList: action.response.currencyList
+      };
+
     case actionTypes.LOAD_FIXRATE_REQUEST:
       return {
         ...state,

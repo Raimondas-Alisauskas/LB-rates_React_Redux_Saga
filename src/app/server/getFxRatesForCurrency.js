@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { getElementValueFromResponse } from './utils';
 
 export const getFxRateForCurrency = async (currency, date1, date2) => {
   let responseValues = {};
@@ -13,8 +14,8 @@ export const getFxRateForCurrency = async (currency, date1, date2) => {
     ])
     .then(
       axios.spread((response1, response2) => {
-        const value1 = getElementValueFromResponse(response1, 'Amt');
-        const value2 = getElementValueFromResponse(response2, 'Amt');
+        const value1 = getElementValueFromResponse(response1, 'Amt', 1);
+        const value2 = getElementValueFromResponse(response2, 'Amt', 1);
         responseValues = {
           currencyRate1: value1,
           currencyRate2: value2
@@ -39,9 +40,4 @@ export const getFxRateForCurrency = async (currency, date1, date2) => {
     });
 
   return responseValues;
-};
-
-const getElementValueFromResponse = (response, element) => {
-  const xmlDoc = new DOMParser().parseFromString(response.data, 'text/xml');
-  return xmlDoc.getElementsByTagName(element)[1].textContent;
 };

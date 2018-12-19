@@ -1,7 +1,7 @@
 import { all, fork } from 'redux-saga/effects';
 
-import fixRateData from './fixRateData';
+import main from './main';
 
 export default function* root() {
-  yield all([fork(fixRateData)]);
+  yield all([fork(main)]);
 }
