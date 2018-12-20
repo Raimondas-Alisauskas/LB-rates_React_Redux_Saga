@@ -8,7 +8,6 @@ export const getCurrencyList = async () => {
       'https://cors.io/?http://old.lb.lt/webservices/fxrates/FxRates.asmx/getCurrencyList'
     )
     .then(response => {
-      // console.log(response.data);
       const values = getElementsValues(response, 'Ccy');
       const lables = getElementsValues(response, '[lang="EN"]');
       currencyList = values.map((value, index) => ({

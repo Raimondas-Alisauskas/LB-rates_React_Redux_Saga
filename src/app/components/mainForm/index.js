@@ -7,7 +7,6 @@ import Paper from '@material-ui/core/Paper/Paper';
 import Typography from '@material-ui/core/Typography/Typography';
 import Button from '@material-ui/core/Button/Button';
 import TextField from '@material-ui/core/TextField';
-// import CurrencySelector from '../currencySelector';
 
 import styles from './styles';
 
