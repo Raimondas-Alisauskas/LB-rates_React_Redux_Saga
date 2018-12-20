@@ -7,12 +7,14 @@ import Paper from '@material-ui/core/Paper/Paper';
 import Typography from '@material-ui/core/Typography/Typography';
 import Button from '@material-ui/core/Button/Button';
 import TextField from '@material-ui/core/TextField';
+// import CurrencySelector from '../currencySelector';
 
 import styles from './styles';
 
-const MainForm = ({
+const mainForm = ({
   classes,
   isLoading,
+  currencyList,
   currency,
   from,
   to,
@@ -35,13 +37,22 @@ const MainForm = ({
       >
         <TextField
           name="currency"
-          value={currency}
-          label="Currency"
-          className={classes.textField}
-          margin="normal"
-          required
+          select
           fullWidth
-        />
+          required
+          label="Currency"
+          value={currency}
+          SelectProps={{
+            native: true
+          }}
+          margin="normal"
+        >
+          {currencyList.map(option => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </TextField>
         <TextField
           name="from"
           value={from}
@@ -100,9 +111,11 @@ const MainForm = ({
   </main>
 );
 
-MainForm.propTypes = {
+mainForm.propTypes = {
   classes: PropTypes.instanceOf(Object).isRequired,
   isLoading: PropTypes.bool.isRequired,
+  currencyList: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string))
+    .isRequired,
   currency: PropTypes.string.isRequired,
   from: PropTypes.string.isRequired,
   to: PropTypes.string.isRequired,
@@ -113,4 +126,4 @@ MainForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired
 };
 
-export default withStyles(styles)(MainForm);
+export default withStyles(styles)(mainForm);

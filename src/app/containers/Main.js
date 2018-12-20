@@ -2,9 +2,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import * as actionCreators from '../state-management/actions';
-import MainForm from '../components/mainForm/MainForm';
+import MainForm from '../components/mainForm';
 
 class Main extends Component {
+  componentDidMount = () => {
+    this.props.loadCurrencyList();
+  };
+
   handleInputChange = e => {
     const { name, value } = e.target;
     this.props.changeInputs(name, value);
@@ -19,6 +23,7 @@ class Main extends Component {
     return (
       <MainForm
         isLoading={this.props.isLoading}
+        currencyList={this.props.currencyList}
         currency={this.props.currency}
         from={this.props.from}
         to={this.props.to}
@@ -34,6 +39,7 @@ class Main extends Component {
 
 const mapStateToProps = state => ({
   isLoading: state.main.isLoading,
+  currencyList: state.main.currencyList,
   currency: state.main.currency,
   from: state.main.from,
   to: state.main.to,
@@ -45,7 +51,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   changeInputs: (name, value) =>
     dispatch(actionCreators.changeInputs(name, value)),
-  loadFixRate: () => dispatch(actionCreators.loadFixRate())
+  loadCurrencyList: () => dispatch(actionCreators.loadCurrencyListRequest()),
+  loadFixRate: () => dispatch(actionCreators.loadFixRateRequest())
 });
 
 export default connect(
