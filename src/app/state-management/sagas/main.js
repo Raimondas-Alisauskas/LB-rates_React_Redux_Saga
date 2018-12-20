@@ -11,11 +11,7 @@ function* main() {
   ]);
 }
 function* getCurrencySaga() {
-  const response = yield getCurrencyList();
-  const currencyList = response.map(el => ({
-    value: el,
-    label: el
-  }));
+  const currencyList = yield getCurrencyList();
   yield put(loadCurrencyListSuccess(currencyList));
 }
 
@@ -23,8 +19,8 @@ function* getFixRateSaga() {
   const currency = store.getState().main.currency;
   const date1 = store.getState().main.from;
   const date2 = store.getState().main.to;
-  const response = yield getFxRateForCurrency(currency, date1, date2);
-  yield put(loadFixRateSuccess(response));
+  const currencyRates = yield getFxRateForCurrency(currency, date1, date2);
+  yield put(loadFixRateSuccess(currencyRates));
 }
 
 export default main;

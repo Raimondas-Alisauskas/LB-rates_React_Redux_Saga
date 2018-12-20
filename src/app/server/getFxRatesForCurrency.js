@@ -1,8 +1,11 @@
 import axios from 'axios';
-import { getElementValueFromResponse } from './utils';
+import { getElementsValues } from './utils';
 
 export const getFxRateForCurrency = async (currency, date1, date2) => {
-  let responseValues = {};
+  let currencyRates = {
+    currencyRate1: '0.0000',
+    currencyRate2: '0.0000'
+  };
   await axios
     .all([
       axios.get(
@@ -14,12 +17,19 @@ export const getFxRateForCurrency = async (currency, date1, date2) => {
     ])
     .then(
       axios.spread((response1, response2) => {
-        const value1 = getElementValueFromResponse(response1, 'Amt', 1);
-        const value2 = getElementValueFromResponse(response2, 'Amt', 1);
-        responseValues = {
-          currencyRate1: value1,
-          currencyRate2: value2
-        };
+        const currencyRate1 = getElementsValues(response1, 'Amt')[1];
+        const currencyRate2 = getElementsValues(response2, 'Amt')[1];
+        const errorMsg1 = getElementsValues(response1, 'Desc');
+        const errorMsg2 = getElementsValues(response2, 'Desc');
+
+        if (errorMsg1.length === 0 && errorMsg2.length === 0) {
+          currencyRates = {
+            currencyRate1: currencyRate1,
+            currencyRate2: currencyRate2
+          };
+        } else {
+          alert(errorMsg1, errorMsg2);
+        }
       })
     )
     .catch(error => {
@@ -30,14 +40,9 @@ export const getFxRateForCurrency = async (currency, date1, date2) => {
         );
       } else if (error.request) {
         alert('The request was made but no response was received');
-        responseValues = {
-          currencyRate1: '0',
-          currencyRate2: '0'
-        };
       } else {
         alert('Please put the valid data');
       }
     });
-
-  return responseValues;
+  return currencyRates;
 };

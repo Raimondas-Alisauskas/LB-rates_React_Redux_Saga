@@ -1,14 +1,20 @@
 import axios from 'axios';
-import { getAllElementsValuesFromResponse } from './utils';
+import { getElementsValues } from './utils';
 
 export const getCurrencyList = async () => {
-  let responseValue = {};
+  let currencyList = [];
   await axios
     .get(
       'https://cors.io/?http://old.lb.lt/webservices/fxrates/FxRates.asmx/getCurrencyList'
     )
     .then(response => {
-      responseValue = getAllElementsValuesFromResponse(response, 'Ccy');
+      // console.log(response.data);
+      const values = getElementsValues(response, 'Ccy');
+      const lables = getElementsValues(response, '[lang="EN"]');
+      currencyList = values.map((value, index) => ({
+        value: value,
+        label: lables[index]
+      }));
     })
     .catch(error => {
       if (error.response) {
@@ -22,6 +28,5 @@ export const getCurrencyList = async () => {
         alert('Please put the valid data');
       }
     });
-
-  return responseValue;
+  return currencyList;
 };
