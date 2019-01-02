@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import * as actionCreators from '../state-management/actions';
-import MainForm from '../components/mainForm';
+import RequestForm from '../components/RequestForm/RequestForm';
 
-class Main extends Component {
+class Request extends Component {
   componentDidMount = () => {
-    this.props.loadCurrencyList();
+    // this.props.loadCurrencyList();
   };
 
   handleInputChange = e => {
@@ -20,8 +20,9 @@ class Main extends Component {
   };
 
   render() {
+    console.log('RequestProps', this.props);
     return (
-      <MainForm
+      <RequestForm
         isLoading={this.props.isLoading}
         currencyList={this.props.currencyList}
         currency={this.props.currency}
@@ -58,4 +59,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Main);
+)(Request);

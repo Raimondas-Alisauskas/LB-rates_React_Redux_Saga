@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline/CssBaseline';
 import Paper from '@material-ui/core/Paper/Paper';
-import Typography from '@material-ui/core/Typography/Typography';
 import Button from '@material-ui/core/Button/Button';
 import TextField from '@material-ui/core/TextField';
 
@@ -26,9 +25,6 @@ const mainForm = ({
   <main className={classes.main}>
     <CssBaseline />
     <Paper className={classes.paper}>
-      <Typography component="h5" variant="h5">
-        Request to lb.lt
-      </Typography>
       <form
         className={classes.form}
         onChange={handleInputChange}
