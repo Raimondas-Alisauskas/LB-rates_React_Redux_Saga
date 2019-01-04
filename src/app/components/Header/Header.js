@@ -8,8 +8,6 @@ import AppBar from '@material-ui/core/AppBar';
 import styles from './styles';
 
 const Header = ({ classes, ...props }) => {
-  console.log('Header', props);
-
   const getAppBarName = () => {
     let name;
     props.mainRoutes.map(route => {

@@ -7,7 +7,7 @@ const initialState = {
   label: 'US dollar',
   from: '2018-01-02',
   to: '2018-01-03',
-  currencyRateArray: [],
+  currencyRateArray: [{ rate: '0' }],
   currencyRate1: '0.0000',
   currencyRate2: '0.0000',
   difference: '0.0000'

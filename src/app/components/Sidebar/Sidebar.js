@@ -13,7 +13,6 @@ import Icon from '@material-ui/core/Icon';
 import styles from './styles';
 
 const Sidebar = ({ classes, ...props }) => {
-  console.log('Sidebar', props);
   return (
     <Drawer
       variant="permanent"

@@ -13,11 +13,16 @@ export const getFxRateForCurrency = async (currency, date1, date2) => {
       `https://cors.io/?http://old.lb.lt//webservices/fxrates/FxRates.asmx/getFxRatesForCurrency?tp=EU&ccy=${currency}&dtFrom=${date1}&dtTo=${date2}`
     )
     .then(response => {
-      const currencyRateArray = getElementsValues(response, 'Amt').filter(
+      const responseArray = getElementsValues(response, 'Amt').filter(
         (e, i) => i % 2 !== 0
       );
-      const currencyRate1 = currencyRateArray.slice(-1)[0];
-      const currencyRate2 = currencyRateArray[0];
+
+      const currencyRate1 = responseArray.slice(-1)[0];
+      const currencyRate2 = responseArray[0];
+
+      const currencyRateArray = responseArray.map(value => ({
+        rate: value
+      }));
 
       const errorMsg = getElementsValues(response, 'Desc');
 

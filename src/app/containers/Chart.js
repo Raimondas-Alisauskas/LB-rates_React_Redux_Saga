@@ -1,8 +1,19 @@
 import React from 'react';
+import { connect } from 'react-redux';
+
+import ChartLine from '../components/ChartLine/ChartLine';
 
 class Chart extends React.Component {
   render() {
-    return <React.Fragment>todo: Chart </React.Fragment>;
+    return <ChartLine currencyRateArray={this.props.currencyRateArray} />;
   }
 }
-export default Chart;
+
+const mapStateToProps = state => ({
+  currencyRateArray: state.main.currencyRateArray
+});
+
+export default connect(
+  mapStateToProps,
+  null
+)(Chart);

@@ -13,21 +13,6 @@ import * as actionCreators from '../../state-management/actions';
 import styles from './styles';
 import { mainRoutes } from '../../routes/mainRoutes';
 
-// const mainRoutes = (
-//   <Switch>
-//     <Route
-//       path="/request"
-//       render={props => <Request routesStore={routesStore} {...props} />}
-//     />
-//     <Route
-//       path="/chart"
-//       render={props => <Chart routesStore={routesStore} {...props} />}
-//     />
-
-//     <Redirect from="/" to="/request" />
-//   </Switch>
-// );
-
 const switchRoutes = (
   <Switch>
     {mainRoutes.map((route, key) => {
@@ -45,8 +30,6 @@ class MainLayout extends React.Component {
 
   render() {
     const { classes, ...rest } = this.props;
-    console.log('MainLayoutProps', this.props);
-    console.log('MainLayoutProps', this.props.match);
     return (
       <div className={classes.root}>
         <CssBaseline />
@@ -65,8 +48,7 @@ class MainLayout extends React.Component {
 
 MainLayout.propTypes = {
   classes: PropTypes.object.isRequired,
-  container: PropTypes.object,
-  theme: PropTypes.object.isRequired
+  container: PropTypes.object
 };
 
 const mapDispatchToProps = dispatch => ({

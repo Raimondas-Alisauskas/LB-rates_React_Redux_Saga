@@ -16,7 +16,6 @@ class Request extends React.Component {
   };
 
   render() {
-    console.log('RequestProps', this.props);
     return (
       <RequestForm
         isLoading={this.props.isLoading}
