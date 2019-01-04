@@ -3,35 +3,35 @@ import { getElementsValues } from './utils';
 
 export const getFxRateForCurrency = async (currency, date1, date2) => {
   let currencyRates = {
+    currencyRateArray: [],
     currencyRate1: '0.0000',
     currencyRate2: '0.0000'
   };
-  await axios
-    .all([
-      axios.get(
-        `https://cors.io/?http://old.lb.lt//webservices/fxrates/FxRates.asmx/getFxRatesForCurrency?tp=EU&ccy=${currency}&dtFrom=${date1}&dtTo=${date1}`
-      ),
-      axios.get(
-        `https://cors.io/?http://old.lb.lt//webservices/fxrates/FxRates.asmx/getFxRatesForCurrency?tp=EU&ccy=${currency}&dtFrom=${date2}&dtTo=${date2}`
-      )
-    ])
-    .then(
-      axios.spread((response1, response2) => {
-        const currencyRate1 = getElementsValues(response1, 'Amt')[1];
-        const currencyRate2 = getElementsValues(response2, 'Amt')[1];
-        const errorMsg1 = getElementsValues(response1, 'Desc');
-        const errorMsg2 = getElementsValues(response2, 'Desc');
 
-        if (errorMsg1.length === 0 && errorMsg2.length === 0) {
-          currencyRates = {
-            currencyRate1: currencyRate1,
-            currencyRate2: currencyRate2
-          };
-        } else {
-          alert(errorMsg1, errorMsg2);
-        }
-      })
+  await axios
+    .get(
+      `https://cors.io/?http://old.lb.lt//webservices/fxrates/FxRates.asmx/getFxRatesForCurrency?tp=EU&ccy=${currency}&dtFrom=${date1}&dtTo=${date2}`
     )
+    .then(response => {
+      const currencyRateArray = getElementsValues(response, 'Amt').filter(
+        (e, i) => i % 2 !== 0
+      );
+      const currencyRate1 = currencyRateArray.slice(-1)[0];
+      const currencyRate2 = currencyRateArray[0];
+
+      const errorMsg = getElementsValues(response, 'Desc');
+
+      if (errorMsg.length === 0) {
+        currencyRates = {
+          currencyRateArray: currencyRateArray,
+          currencyRate1: currencyRate1,
+          currencyRate2: currencyRate2
+        };
+      } else {
+        alert(errorMsg);
+      }
+    })
+
     .catch(error => {
       if (error.response) {
         alert(

@@ -5,8 +5,9 @@ const initialState = {
   currencyList: [],
   currency: 'USD',
   label: 'US dollar',
-  from: '2018-01-01',
-  to: '2018-02-01',
+  from: '2018-01-02',
+  to: '2018-01-03',
+  currencyRateArray: [],
   currencyRate1: '0.0000',
   currencyRate2: '0.0000',
   difference: '0.0000'
@@ -38,11 +39,13 @@ export default (state = initialState, action) => {
         isLoading: true
       };
     case actionTypes.LOAD_FIXRATE_SUCCESS:
+      const currencyRateArray = action.currencyRates.currencyRateArray;
       const currencyRate1 = action.currencyRates.currencyRate1;
       const currencyRate2 = action.currencyRates.currencyRate2;
       return {
         ...state,
         isLoading: false,
+        currencyRateArray: currencyRateArray,
         currencyRate1: currencyRate1,
         currencyRate2: currencyRate2,
         difference: (currencyRate2 - currencyRate1).toFixed(4)
