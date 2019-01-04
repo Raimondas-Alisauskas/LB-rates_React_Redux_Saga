@@ -1,14 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 
 import * as actionCreators from '../state-management/actions';
 import RequestForm from '../components/RequestForm/RequestForm';
 
-class Request extends Component {
-  componentDidMount = () => {
-    // this.props.loadCurrencyList();
-  };
-
+class Request extends React.Component {
   handleInputChange = e => {
     const { name, value } = e.target;
     this.props.changeInputs(name, value);

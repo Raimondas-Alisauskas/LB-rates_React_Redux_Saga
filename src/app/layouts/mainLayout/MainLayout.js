@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Switch, Route, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { withStyles } from '@material-ui/core/styles';
@@ -8,8 +9,10 @@ import { withStyles } from '@material-ui/core/styles';
 import Header from '../../components/Header/Header';
 import Sidebar from '../../components/Sidebar/Sidebar';
 
+import * as actionCreators from '../../state-management/actions';
 import styles from './styles';
 import { mainRoutes } from '../../routes/mainRoutes';
+
 // const mainRoutes = (
 //   <Switch>
 //     <Route
@@ -36,6 +39,10 @@ const switchRoutes = (
 );
 
 class MainLayout extends React.Component {
+  componentDidMount = () => {
+    this.props.loadCurrencyList();
+  };
+
   render() {
     const { classes, ...rest } = this.props;
     console.log('MainLayoutProps', this.props);
@@ -62,4 +69,11 @@ MainLayout.propTypes = {
   theme: PropTypes.object.isRequired
 };
 
-export default withStyles(styles, { withTheme: true })(MainLayout);
+const mapDispatchToProps = dispatch => ({
+  loadCurrencyList: () => dispatch(actionCreators.loadCurrencyListRequest())
+});
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(withStyles(styles)(MainLayout));
