@@ -10,6 +10,8 @@ Create a program that can get exchange rates by:
 The program must provide the specified exchange rates and calculate the exchange rate difference from the beginning to the end of the period.
 Data storage is not required.
 
+Additionaly added: simple chart of rate change.
+
 ---
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
