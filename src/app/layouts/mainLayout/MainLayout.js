@@ -22,6 +22,7 @@ const switchRoutes = (
     })}
   </Switch>
 );
+
 mainRoutes.pop();
 
 class MainLayout extends React.Component {
