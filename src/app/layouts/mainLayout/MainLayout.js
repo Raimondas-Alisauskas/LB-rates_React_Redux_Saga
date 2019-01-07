@@ -22,6 +22,7 @@ const switchRoutes = (
     })}
   </Switch>
 );
+mainRoutes.pop();
 
 class MainLayout extends React.Component {
   componentDidMount = () => {
@@ -37,10 +38,7 @@ class MainLayout extends React.Component {
         <nav className={classes.drawer}>
           <Sidebar mainRoutes={mainRoutes} {...rest} />
         </nav>
-        <main className={classes.content}>
-          <div className={classes.toolbar} />
-          {switchRoutes}
-        </main>
+        <main className={classes.content}>{switchRoutes}</main>
       </div>
     );
   }
